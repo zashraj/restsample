@@ -16,7 +16,7 @@ web:
     JDBC_USER: root
     JDBC_PASS: toor
   ports:
-   - "8081:8081"
+   - "8080:8080"
   volumes:
    - ./target/restsample-0.0.1-SNAPSHOT.war:/usr/local/tomcat/webapps/restsample
   links:

@@ -13,7 +13,7 @@ import com.mindtree.restsample.dto.Employee;
 
 public class EmployeeCrudTest {
 	private SessionFactory sessionFactory;
-	private Session session = null;
+	//private Session session = null;
 
 	/*@Before
 	public void before() {

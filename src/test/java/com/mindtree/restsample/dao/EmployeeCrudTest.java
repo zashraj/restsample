@@ -42,7 +42,7 @@ public class EmployeeCrudTest {
 		e.setEmpid("abc123");
 		e.setFullName("testName");
 		e.setGender("Male");
-		session.save(e);
+		//session.save(e);
 		
 		//Employee emp = session.load(Employee.class, "abc123");
 		//assertNotNull(emp);

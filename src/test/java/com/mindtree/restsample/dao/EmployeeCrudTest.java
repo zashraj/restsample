@@ -24,7 +24,7 @@ public class EmployeeCrudTest {
 		configuration.addAnnotatedClass(Employee.class);
 		configuration.setProperty("hibernate.dialect","org.hibernate.dialect.MySQLDialect");
 		configuration.setProperty("hibernate.connection.driver_class","com.mysql.jdbc.Driver");
-		configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/employees");
+		configuration.setProperty("hibernate.connection.url", "jdbc:mysql://db1:3306/employees");
 		configuration.setProperty("hibernate.connection.username", "root");
 		configuration.setProperty("hibernate.connection.password", "toor");
 		configuration.setProperty("hibernate.hbm2ddl.auto", "create");

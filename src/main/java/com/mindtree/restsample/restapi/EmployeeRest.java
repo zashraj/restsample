@@ -21,6 +21,16 @@ import com.mindtree.restsample.service.EmployeeService;
 //@Api(value = "EmpMgt", description = "REST Apis related to Employee Entity!!!!")
 public class EmployeeRest {
 
+	EmployeeService service;
+	public EmployeeRest()
+	{
+		service = new EmployeeService();
+	}
+	
+	public EmployeeRest(EmployeeService service)
+	{
+		this.service = service;
+	}
 	@PUT
 	@Path("/addEmp")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -30,7 +40,6 @@ public class EmployeeRest {
             @ApiResponse(code = 200, message = "Suceess|OK"),
             @ApiResponse(code = 404, message = "not found!!!") })*/
 	public Response createEmployee(Employee e) {
-		EmployeeService service = new EmployeeService();
 		service.addEmployee(e);
 		return Response.status(200).entity("Employee data inserted successfully.").build();
 	}
@@ -44,8 +53,7 @@ public class EmployeeRest {
             @ApiResponse(code = 200, message = "Suceess|OK"),
             @ApiResponse(code = 401, message = "not authorized!"),
             @ApiResponse(code = 404, message = "not found!!!") })*/
-	public Response createEmployee(@PathParam("empid") String empid) {
-		EmployeeService service = new EmployeeService();
+	public Response deleteEmployee(@PathParam("empid") String empid) {
 		service.deleteEmployee(empid);
 		return Response.status(200).entity("Employee data deleted successfully").build();
 	}
@@ -60,7 +68,6 @@ public class EmployeeRest {
             @ApiResponse(code = 401, message = "not authorized!"),
             @ApiResponse(code = 404, message = "not found!!!") })*/
 	public Response getAllEmployees() {
-		EmployeeService service = new EmployeeService();
 		List<Employee> l = service.getAllEmployees();
 		return Response.status(200).entity(l).build();
 	}
@@ -70,15 +77,13 @@ public class EmployeeRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getEmployeeById(@PathParam("empid") String empid) {
-		EmployeeCrud c = new EmployeeCrud();
-		Employee e = c.readById(empid);
+		Employee e = service.getEmployee(empid);
 		return Response.status(200).entity(e).build();
 	}
 
 	@POST
 	@Path("/checkLogin")
 	public Response checkValidity(Employee e) {
-		EmployeeService service = new EmployeeService();
 		if (service.isEmployeeValid(e)) {
 			return Response.status(200).entity("Employee has authenticated successfully").build();
 		}

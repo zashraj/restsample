@@ -16,21 +16,28 @@ import com.mindtree.restsample.dto.Employee;
 
 public class EmployeeCrud {
 	private static Session session;
-	private static SessionFactory sessionFactory;
-
-	private static SessionFactory sessionFactoryBuilder() {
+	private SessionFactory sessionFactory;
+	
+	public EmployeeCrud()
+	{
 		Configuration config = new Configuration();
 		config.configure("hibernate.cfg.xml");
 		config.addAnnotatedClass(com.mindtree.restsample.dto.Employee.class);
 		ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings(config.getProperties())
 				.build();
 		sessionFactory = config.buildSessionFactory(serviceRegistryObj);
-		return sessionFactory;
 	}
+	
+	public EmployeeCrud(SessionFactory sessionFactory)
+	{
+		this.sessionFactory = sessionFactory;
+	}
+
+
 
 	public void create(Employee e) {
 		try {
-			session = sessionFactoryBuilder().openSession();
+			session = sessionFactory.openSession();
 			session.beginTransaction();
 			try {
 				session.save(e);
@@ -46,14 +53,14 @@ public class EmployeeCrud {
 	}
 
 	public void update(Employee e) {
-		session = sessionFactoryBuilder().openSession();
+		session = sessionFactory.openSession();
 		session.beginTransaction();
 	}
 
 	public Employee readById(String empid) {
 		Employee emp = null;
 		try {
-			session = sessionFactoryBuilder().openSession();
+			session = sessionFactory.openSession();
 			session.beginTransaction();
 			emp = session.load(Employee.class, empid);
 		} catch (Exception e) {
@@ -65,7 +72,7 @@ public class EmployeeCrud {
 	public List<Employee> readAll() {
 		List<Employee> employeelist = new ArrayList<>();
 		try {
-			session = sessionFactoryBuilder().openSession();
+			session = sessionFactory.openSession();
 			session.beginTransaction();
 			employeelist = (List<Employee>) session.createQuery("from Employee").list();
 		} catch (Exception e) {
@@ -80,7 +87,7 @@ public class EmployeeCrud {
 	{
 		Employee emp = null;
 		try {
-			session = sessionFactoryBuilder().openSession();
+			session = sessionFactory.openSession();
 			session.beginTransaction();
 			List<Employee> e = session.createQuery("from Employee where username like :u").setParameter("u", name).list();
 			emp=e.get(0);
@@ -93,7 +100,7 @@ public class EmployeeCrud {
 	}
 	public void delete(String empid) {
 		try {
-			session = sessionFactoryBuilder().openSession();
+			session = sessionFactory.openSession();
 			session.beginTransaction();
 			Employee emp = readById(empid);
 			session.delete(emp);

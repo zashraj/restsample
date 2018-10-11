@@ -16,6 +16,6 @@ node {
        sh "mvn sonar:sonar -Dsonar.host.url=http://mydevops.southindia.cloudapp.azure.com:9000/sonar"
    }
    stage('Run Docker image'){
-       sh "docker-compose up"
+       sh "docker-compose up -d"
    }
 }

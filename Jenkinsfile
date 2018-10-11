@@ -11,7 +11,7 @@ node {
    stage('Archive-war') {
       junit '**/target/surefire-reports/TEST-*.xml'
       archive 'target/*.war'
-      sh "cp target/restsample.war /var/tmp/warfiles/target/restsample.war "
+      sh "cp target/restsample.war $HOME/wars/restsample.war "
    }
    stage('Sonar') {
        sh "mvn sonar:sonar -Dsonar.host.url=http://18.224.172.45:9000/sonar"

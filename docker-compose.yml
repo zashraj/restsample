@@ -18,6 +18,6 @@ web:
   ports:
    - "8080:8080"
   volumes:
-   - /target:/usr/local/tomcat/webapps
+   - ./target:/usr/local/tomcat/webapps
   links:
     - db:db1

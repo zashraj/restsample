@@ -1,9 +1,5 @@
-FROM mysql/mysql-server:5.6
+FROM tomcat
 
+COPY ./target/restsample.war /usr/local/tomcat/webapps/restsample.war
 
-ENV MYSQL_ROOT_PASSWORD=toor
-ENV MYSQL_DATABASE=employees
-
-COPY ./employees_employee.sql /docker-entrypoint-initdb.d/init.sql
-
-EXPOSE 3306
+EXPOSE 8080
